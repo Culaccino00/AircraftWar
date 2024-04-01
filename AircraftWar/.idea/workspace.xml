@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0426e5b2-4047-4948-afde-825363e81624" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/lib/commons-lang3-3.8.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/aircraft/AbstractAircraft.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/aircraft/HeroAircraft.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/aircraft/MobEnemy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/application/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/application/HeroController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/application/HeroController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/application/ImageManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/application/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/basic/AbstractFlyingObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/bullet/BaseBullet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/bullet/EnemyBullet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/edu/hitsz/bullet/HeroBullet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/bg2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/bg3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/bg4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/bg5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/boss.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/bullet_enemy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/bullet_hero.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/elite.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/hero.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/prop_blood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/prop_bomb.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/images/prop_bullet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/videos/bgm.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/videos/bgm_boss.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/videos/bomb_explosion.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/videos/bullet.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/videos/bullet_hit.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/videos/game_over.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AircraftWar-base/videos/get_supply.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/aircraft/AbstractAircraft.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/aircraft/EliteEnemy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/aircraft/HeroAircraft.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/aircraft/MobEnemy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/application/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/application/HeroController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/application/ImageManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/application/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/basic/AbstractFlyingObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/bullet/BaseBullet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/bullet/EnemyBullet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/bullet/HeroBullet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/prop/BaseProp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/prop/BloodProp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/prop/BombProp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/hitsz/prop/BulletProp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/bg2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/bg3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/bg4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/bg5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/boss.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/bullet_enemy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/bullet_hero.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/elite.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/hero.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/mob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/prop_blood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/prop_bomb.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/prop_bullet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/videos/bgm.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/videos/bgm_boss.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/videos/bomb_explosion.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/videos/bullet.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/videos/bullet_hit.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/videos/game_over.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/videos/get_supply.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uml/Demo.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uml/Inheritence.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uml/test.puml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2eUs0sKbJsrFWgyeXyNzePwlnkQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Coding/IntellijIdeaWorkSpace/AircraftWar&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;应用程序.Main.executor&quot;: &quot;Run&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-22-openjdk-22-4caba194b151-f504ca98" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="0426e5b2-4047-4948-afde-825363e81624" name="更改" comment="" />
+      <created>1711970270322</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711970270322</updated>
+      <workItem from="1711970271364" duration="68000" />
+      <workItem from="1711970732498" duration="225000" />
+      <workItem from="1711970973979" duration="14000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
