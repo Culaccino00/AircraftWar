@@ -4,6 +4,9 @@ import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.EnemyBullet;
+import edu.hitsz.factory.EliteEnemyFactory;
+import edu.hitsz.factory.EnemyFactory;
+import edu.hitsz.factory.MobEnemyFactory;
 import edu.hitsz.prop.BaseProp;
 import edu.hitsz.prop.BloodProp;
 import edu.hitsz.prop.BombProp;
@@ -68,10 +71,7 @@ public class Game extends JPanel {
     private boolean gameOverFlag = false;
 
     public Game() {
-        heroAircraft = new HeroAircraft(
-                Main.WINDOW_WIDTH / 2,
-                Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                0, 0, 100);
+        heroAircraft = HeroAircraft.getHeroAircraft();
 
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
@@ -160,28 +160,21 @@ public class Game extends JPanel {
             return false;
         }
     }
-private void addEnemy() {
+    private void addEnemy() {
+        EnemyFactory enemyFactory;
+        AbstractAircraft enemy = null;
         //随机生成EliteEnemy和MobEnemy
         if (enemyAircrafts.size() < enemyMaxNumber) {
             if (Math.random() > 0.5) {
-                enemyAircrafts.add(new MobEnemy(
-                        (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
-                        (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                        0,
-                        10,
-                        30
-                ));
-//                System.out.println("MobEnemy come");
-            } else {
-                enemyAircrafts.add(new EliteEnemy(
-                        (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.ELITE_ENEMY_IMAGE.getWidth())),
-                        (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
-                        0,
-                        10,
-                        30
-                ));
+            enemyFactory = new MobEnemyFactory();
+            enemy = enemyFactory.createEnemy();
+            }
+            else {
+                enemyFactory = new EliteEnemyFactory();
+                enemy = enemyFactory.createEnemy();
             }
         }
+        enemyAircrafts.add(enemy);
     }
     private void shootAction() {
         // 敌机射击

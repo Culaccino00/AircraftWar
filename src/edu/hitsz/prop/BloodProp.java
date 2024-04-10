@@ -11,7 +11,7 @@ public class BloodProp extends BaseProp{
     @Override
     public void effect(AbstractAircraft aircraft) {
         if(aircraft.getHp()<aircraft.getMaxHp()){
-            aircraft.decreaseHp(-30);
+            aircraft.decreaseHp(-(Math.min(30,aircraft.getMaxHp()-aircraft.getHp())));
         }
 //        System.out.println("BloodSupply active!");
         vanish();

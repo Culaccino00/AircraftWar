@@ -4,6 +4,10 @@ import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.EnemyBullet;
+import edu.hitsz.factory.BloodPropFactory;
+import edu.hitsz.factory.BombPropFactory;
+import edu.hitsz.factory.BulletPropFactory;
+import edu.hitsz.factory.PropFactory;
 import edu.hitsz.prop.BaseProp;
 import edu.hitsz.prop.BloodProp;
 import edu.hitsz.prop.BombProp;
@@ -28,7 +32,7 @@ public class EliteEnemy extends AbstractAircraft {
     /**
      * 子弹伤害
      */
-    private int power = 30;
+    private int power = 10;
     /**
      * 子弹射击方向 (向上发射：1，向下发射：-1)
      */
@@ -70,14 +74,19 @@ public class EliteEnemy extends AbstractAircraft {
         int y = this.getLocationY() + direction*2;
         int speedX = 0;
         int speedY = this.getSpeedY() + direction*5;
-        if (Math.random() <= 1.0 / 4) {
-            props.add(new BloodProp(x, y, speedX, speedY));
-        } else if (Math.random() >= 1.0 / 4 && Math.random() <= 2.0 / 4 ) {
-            props.add(new BombProp(x, y, speedX, speedY));
-        } else if (Math.random() >= 2.0 / 4 && Math.random() <= 3.0 /4){
-            props.add(new BulletProp(x, y, speedX, speedY));
+        PropFactory propFactory;
+        BaseProp prop;
+        if (Math.random() <= 30.0 / 100) {
+            propFactory = new BloodPropFactory();
+        } else if (Math.random() >= 30.0 / 100 && Math.random() <= 60.0 / 100 ) {
+            propFactory = new BombPropFactory();
+        } else if (Math.random() >= 60.0 / 100 && Math.random() <= 90.0 /100){
+            propFactory = new BulletPropFactory();
         }else{
+            return props;
         }
+        prop = propFactory.createProp(x, y, speedX, speedY);
+        props.add(prop);
         return props;
     }
 
