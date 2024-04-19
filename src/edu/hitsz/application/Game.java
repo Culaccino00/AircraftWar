@@ -4,9 +4,7 @@ import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.EnemyBullet;
-import edu.hitsz.factory.EliteEnemyFactory;
-import edu.hitsz.factory.EnemyFactory;
-import edu.hitsz.factory.MobEnemyFactory;
+import edu.hitsz.factory.*;
 import edu.hitsz.prop.BaseProp;
 import edu.hitsz.prop.BloodProp;
 import edu.hitsz.prop.BombProp;
@@ -48,6 +46,7 @@ public class Game extends JPanel {
      * 屏幕中出现的敌机最大数量
      */
     private int enemyMaxNumber = 5;
+    private int bossNumber = 1;
 
     /**
      * 当前得分
@@ -64,6 +63,7 @@ public class Game extends JPanel {
      */
     private int cycleDuration = 600;
     private int cycleTime = 0;
+    boolean flag = false;
 
     /**
      * 游戏结束标志
@@ -163,18 +163,30 @@ public class Game extends JPanel {
     private void addEnemy() {
         EnemyFactory enemyFactory;
         AbstractAircraft enemy = null;
-        //随机生成EliteEnemy和MobEnemy
+        //随机生成EliteEnemy,ElitePlusEnemy和MobEnemy
         if (enemyAircrafts.size() < enemyMaxNumber) {
             if (Math.random() > 0.5) {
             enemyFactory = new MobEnemyFactory();
             enemy = enemyFactory.createEnemy();
             }
-            else {
+            else if (Math.random() < 0.8){
                 enemyFactory = new EliteEnemyFactory();
                 enemy = enemyFactory.createEnemy();
             }
+            else {
+                enemyFactory = new ElitePlusEnemyFactory();
+                enemy = enemyFactory.createEnemy();
+            }
+            enemyAircrafts.add(enemy);
         }
-        enemyAircrafts.add(enemy);
+
+        if( score >= 200*bossNumber && flag == false){//每获得100分，产生boss
+            enemyFactory = new BossEnemyFactory();
+            enemy = enemyFactory.createEnemy();
+            enemyAircrafts.add(enemy);
+            flag = true;
+            bossNumber ++;
+        }
     }
     private void shootAction() {
         // 敌机射击
@@ -256,8 +268,15 @@ public class Game extends JPanel {
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
                         props.addAll(enemyAircraft.createProps());
-                        //获得分数，产生道具补给
-                        score += 10;
+                        if(enemyAircraft instanceof BossEnemy)
+                        {
+                            score += 20;
+                            flag = false;
+                        }
+                        else {
+                            //获得分数，产生道具补给
+                            score += 10;
+                        }
                     }
 
                 }
