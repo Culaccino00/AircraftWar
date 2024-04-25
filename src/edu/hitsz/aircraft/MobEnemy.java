@@ -14,6 +14,7 @@ import java.util.List;
  * @author hitsz
  */
 public class MobEnemy extends AbstractAircraft{
+    private int direction = 1;
 
     public MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
@@ -30,7 +31,7 @@ public class MobEnemy extends AbstractAircraft{
 
     @Override
     public List<BaseBullet> shoot() {
-        return new LinkedList<>();
+        return doShoot(this.getLocationX(), this.getLocationY(), 0, this.getSpeedY(), direction);
     }
     public List<BaseProp> createProps() {
         return new LinkedList<>();

@@ -63,7 +63,9 @@ public class Game extends JPanel {
      */
     private int cycleDuration = 600;
     private int cycleTime = 0;
-    boolean flag = false;
+    private boolean bossExistFlag = false;
+    private int thredhold = 200;
+    private int increaseThreshold = 200;
 
     /**
      * 游戏结束标志
@@ -180,12 +182,15 @@ public class Game extends JPanel {
             enemyAircrafts.add(enemy);
         }
 
-        if( score >= 200*bossNumber && flag == false){//每获得100分，产生boss
-            enemyFactory = new BossEnemyFactory();
-            enemy = enemyFactory.createEnemy();
-            enemyAircrafts.add(enemy);
-            flag = true;
-            bossNumber ++;
+        if( score >= thredhold){
+            if(bossExistFlag == false) {//每获得100分，产生boss
+                enemyFactory = new BossEnemyFactory();
+                enemy = enemyFactory.createEnemy();
+                enemyAircrafts.add(enemy);
+                bossExistFlag = true;
+                bossNumber++;
+            }
+            thredhold = thredhold + increaseThreshold;
         }
     }
     private void shootAction() {
@@ -232,22 +237,13 @@ public class Game extends JPanel {
             if (bullet.notValid()) {
                 continue;
             }
-            for (AbstractAircraft enemyAircraft : enemyAircrafts) {
-                if (bullet.notValid()) {
-                    continue;
-                }
-                if (heroAircraft.crash(bullet)) {
-                    // 英雄机撞击到敌机子弹
-                    // 英雄机损失一定生命值
-                    heroAircraft.decreaseHp(bullet.getPower());
-                    bullet.vanish();
-                }
-                // 英雄机 与 敌机 相撞，均损毁
-                if (enemyAircraft.crash(heroAircraft) || heroAircraft.crash(enemyAircraft)) {
-                    enemyAircraft.vanish();
-                    heroAircraft.decreaseHp(Integer.MAX_VALUE);
-                }
+            if (heroAircraft.crash(bullet)) {
+                // 英雄机撞击到敌机子弹
+                // 英雄机损失一定生命值
+                heroAircraft.decreaseHp(bullet.getPower());
+                bullet.vanish();
             }
+
         }
 
         // 英雄子弹攻击敌机
@@ -271,7 +267,7 @@ public class Game extends JPanel {
                         if(enemyAircraft instanceof BossEnemy)
                         {
                             score += 20;
-                            flag = false;
+                            bossExistFlag = false;
                         }
                         else {
                             //获得分数，产生道具补给
@@ -285,21 +281,17 @@ public class Game extends JPanel {
                     enemyAircraft.vanish();
                     heroAircraft.decreaseHp(Integer.MAX_VALUE);
                 }
-
-                //我方获得道具，道具生效
-                for(BaseProp prop : props){
-                    if(prop.notValid()){
-                        continue;
-                    }
-                    if(prop.crash(heroAircraft)||heroAircraft.crash(prop)){
-                        prop.effect(heroAircraft);
-                    }
-                }
             }
         }
-
-
-
+        for(BaseProp prop : props){
+            if(prop.notValid()){
+                continue;
+            }
+            if(prop.crash(heroAircraft)||heroAircraft.crash(prop)){
+                prop.effect(heroAircraft);
+                prop.vanish();
+            }
+        }
     }
 
     /**

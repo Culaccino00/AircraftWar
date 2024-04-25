@@ -4,6 +4,7 @@ import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.aircraft.MobEnemy;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
+import edu.hitsz.strategy.NoneShootStrategy;
 
 
 public class MobEnemyFactory implements EnemyFactory{
@@ -14,6 +15,7 @@ public class MobEnemyFactory implements EnemyFactory{
                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.05),
                 0, 10, 30
         );
+        mobEnemy.setStrategy(new NoneShootStrategy());
         return mobEnemy;
     }
 }

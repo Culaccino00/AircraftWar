@@ -5,6 +5,7 @@ import edu.hitsz.application.Main;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.bullet.HeroBullet;
 import edu.hitsz.prop.BaseProp;
+import edu.hitsz.strategy.StraightShootStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,12 +21,12 @@ public class HeroAircraft extends AbstractAircraft {
     /**
      * 子弹一次发射数量
      */
-    private int shootNum = 1;
+//    private int shootNum = 1;
 
     /**
      * 子弹伤害
      */
-    private int power = 30;
+//    private int power = 30;
 
     /**
      * 子弹射击方向 (向上发射：1，向下发射：-1)
@@ -53,9 +54,11 @@ public class HeroAircraft extends AbstractAircraft {
                             Main.WINDOW_WIDTH / 2,
                             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
                             0, 0, 1000);
+
                 }
             }
         }
+        heroAircraft.setStrategy(new StraightShootStrategy());
         return heroAircraft;
     }
 
@@ -73,19 +76,7 @@ public class HeroAircraft extends AbstractAircraft {
      * @return 射击出的子弹List
      */
     public List<BaseBullet> shoot() {
-        List<BaseBullet> res = new LinkedList<>();
-        int x = this.getLocationX();
-        int y = this.getLocationY() + direction*2;
-        int speedX = 0;
-        int speedY = this.getSpeedY() + direction*5;
-        BaseBullet bullet;
-        for(int i=0; i<shootNum; i++){
-            // 子弹发射位置相对飞机位置向前偏移
-            // 多个子弹横向分散
-            bullet = new HeroBullet(x + (i*2 - shootNum + 1)*10, y, speedX, speedY, power);
-            res.add(bullet);
-        }
-        return res;
+        return heroAircraft.doShoot(this.getLocationX(), this.getLocationY(), 0, this.getSpeedY(), direction);
     }
     public List<BaseProp> createProps() {
         return new LinkedList<>();
