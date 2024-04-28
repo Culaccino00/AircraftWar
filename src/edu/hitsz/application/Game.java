@@ -1,5 +1,8 @@
 package edu.hitsz.application;
 
+import edu.hitsz.DAO.Record;
+import edu.hitsz.DAO.RecordDao;
+import edu.hitsz.DAO.RecordDaoImpl;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
@@ -14,6 +17,8 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
@@ -71,8 +76,10 @@ public class Game extends JPanel {
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
+    private RecordDao recordDao = new RecordDaoImpl();
 
-    public Game() {
+
+    public Game()  {
         heroAircraft = HeroAircraft.getHeroAircraft();
 
         enemyAircrafts = new LinkedList<>();
@@ -100,6 +107,7 @@ public class Game extends JPanel {
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
+//            try{
 
             time += timeInterval;
 
@@ -135,6 +143,16 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
+                //记录分数
+                Date date = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm");
+                Record record = new Record("testUserName", score, formatter.format(date));
+                try {
+                    recordDao.updateRecord(record);
+                    recordDao.printRecord();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println("Game Over!");
             }
 
