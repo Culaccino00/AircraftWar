@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Gmae{
+    - recordDao: RecordDao
+    + action():void
+}
+
+interface RecordDao{
+    + {abstract} getAllRecord():List<Record>
+    + {abstract} updateRecord(Record record):void
+    + {abstract} deleteRecord(int row):void
+    + {abstract} writeRecord(List<Record> records):void
+    + {abstract} printRecord():void
+}
+
+class RecordDaoImpl{
+    - file: File
+    + RecordDaoImpl()
+    + getAllRecord():List<Record>
+    + updateRecord(Record record):void
+    + deleteRecord(int row):void
+    + writeRecord(List<Record> records):void
+    + printRecord():void
+}
+
+class Record{
+    - userName:String
+    - score:int
+    - time:String
+    + Record(String userName, int score, String time)
+    + setUserName(String userName):void
+    + getUserName():String
+    + setScore(int score):void
+    + getScore():int
+    + setTime(String time):void
+    + getTime():String
+}
+
+RecordDao <|.. RecordDaoImpl
+Gmae ..> RecordDao
+RecordDaoImpl --> Record
+
+
+@enduml

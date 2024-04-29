@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ShootStrategy{
+    + {abstract} shootBullet(int locationX, int locationY, int speedX, int speedY, int direction):List<BaseBullet>
+}
+
+class ScatterShootStrategy {
+    + shootBullet(int locationX, int locationY, int speedX, int speedY, int direction):List<BaseBullet>
+}
+
+class StraightShootStrategy {
+    + shootBullet(int locationX, int locationY, int speedX, int speedY, int direction):List<BaseBullet>
+}
+
+class NoneShootStrategy {
+    + shootBullet(int locationX, int locationY, int speedX, int speedY, int direction):List<BaseBullet>
+}
+class RingShootStrategy{
+    + shootBullet(int locationX, int locationY, int speedX, int speedY, int direction):List<BaseBullet>
+}
+
+abstract class AbstractAircraft
+{
+	# maxHp:int
+    # hp:int
+    # propfactory:PropFactory
+    - shootStrategy:ShootStrategy
+    + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
+    + setStrategy(ShootStrategy shootStrategy):void
+    + doShoot(int locationX, int locationY, int speedX, int speedY, int direction):List<BaseBullet>
+    + decreaseHp(int decrease):void
+    + getHp():int
+    + getMaxHp():int
+    + {abstract} shoot():List<BaseBullet>
+    + {abstract} createProps():List<BaseProp>
+ }
+
+ShootStrategy <|.. ScatterShootStrategy
+ShootStrategy <|.. StraightShootStrategy
+ShootStrategy <|.. NoneShootStrategy
+ShootStrategy <|.. RingShootStrategy
+AbstractAircraft o--> ShootStrategy
+@enduml
