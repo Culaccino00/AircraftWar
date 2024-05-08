@@ -1,24 +1,19 @@
-package edu.hitsz.application;
+package edu.hitsz.application.Game;
 
-import edu.hitsz.DAO.Record;
-import edu.hitsz.DAO.RecordDao;
-import edu.hitsz.DAO.RecordDaoImpl;
 import edu.hitsz.aircraft.*;
+import edu.hitsz.application.HeroController;
+import edu.hitsz.application.ImageManager;
+import edu.hitsz.application.Main;
+import edu.hitsz.application.Swing.RankList;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
-import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.factory.*;
 import edu.hitsz.prop.BaseProp;
-import edu.hitsz.prop.BloodProp;
-import edu.hitsz.prop.BombProp;
-import edu.hitsz.prop.BulletProp;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
@@ -71,12 +66,13 @@ public class Game extends JPanel {
     private boolean bossExistFlag = false;
     private int thredhold = 200;
     private int increaseThreshold = 200;
+    protected int difficulty;
 
     /**
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
-    private RecordDao recordDao = new RecordDaoImpl();
+//    private RecordDao recordDao = new RecordDaoImpl();
 
 
     public Game()  {
@@ -143,17 +139,16 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
-                //记录分数
-                Date date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm");
-                Record record = new Record("testUserName", score, formatter.format(date));
-                try {
-                    recordDao.updateRecord(record);
-                    recordDao.printRecord();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
                 System.out.println("Game Over!");
+                //弹出排行榜
+                RankList rankList = new RankList(difficulty);
+                Main.cardPanel.add(rankList.getMainPanel());
+                Main.cardLayout.last(Main.cardPanel);
+                rankList.showRankList(difficulty);
+                //记录分数
+                rankList.inputRecord(score, difficulty);
+                //显示更新后的排行榜
+                rankList.showRankList(difficulty);
             }
 
         };

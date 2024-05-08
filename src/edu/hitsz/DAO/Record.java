@@ -11,6 +11,8 @@ public class Record implements Serializable {
         this.score = score;
         this.time = time;
     }
+    public Record(){
+    }
     public void setUserName(String userName){
         this.userName = userName;
     }
