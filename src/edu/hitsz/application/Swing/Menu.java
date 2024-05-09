@@ -5,6 +5,8 @@ import edu.hitsz.application.Game.Game;
 import edu.hitsz.application.Game.HardGame;
 import edu.hitsz.application.Game.MediumGame;
 import edu.hitsz.application.Main;
+import edu.hitsz.application.Music.MusicPlayer;
+import edu.hitsz.application.Music.MusicThread;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,6 +29,9 @@ public class Menu{
     public Menu() {
 
 
+        /**
+         * 点击按钮，选择游戏难度
+         */
         easyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,20 +59,17 @@ public class Menu{
                 game.action();
             }
         });
+        /**
+         * 设置音效开启 /关闭
+         */
         musicCombo.addItem("开启");
         musicCombo.addItem("关闭");
         musicCombo.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 String item = e.getItem().toString();
-                switch (item){
-                    case "开启":
-                        System.out.println("音效开启！");
-                        break;
-                    case "关闭":
-                        System.out.println("音效关闭！");
-                        break;
-                    default:
+                if(item == "关闭"){
+                    MusicPlayer.getMusicPlayer().noMusic();
                 }
             }
         });
@@ -76,11 +78,4 @@ public class Menu{
         return mainPanel;
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Menu");
-        frame.setContentPane(new Menu().mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
 }

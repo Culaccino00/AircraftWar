@@ -29,6 +29,9 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
     public void setStrategy(ShootStrategy shootStrategy) {
         this.shootStrategy = shootStrategy;
     }
+    public ShootStrategy getStrategy(){
+        return this.shootStrategy;
+    }
     public List<BaseBullet> doShoot(int locationX, int locationY, int speedX, int speedY, int direction){
         return shootStrategy.shootBullet(locationX, locationY, speedX, speedY, direction);
     }

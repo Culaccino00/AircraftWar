@@ -1,6 +1,8 @@
 package edu.hitsz.prop;
 
 import edu.hitsz.aircraft.AbstractAircraft;
+import edu.hitsz.application.Music.MusicPlayer;
+import edu.hitsz.application.Music.MusicThread;
 import edu.hitsz.bullet.BaseBullet;
 
 public class BombProp extends BaseProp {
@@ -9,7 +11,8 @@ public class BombProp extends BaseProp {
     }
     @Override
     public void effect(AbstractAircraft aircraft){
-        System.out.println("BombSupply active!");
+        MusicPlayer.getMusicPlayer().playMusic("src/videos/bomb_explosion.wav");
+//        System.out.println("BombSupply active!");
         vanish();
     }
 }

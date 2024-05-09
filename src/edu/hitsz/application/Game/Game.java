@@ -4,6 +4,8 @@ import edu.hitsz.aircraft.*;
 import edu.hitsz.application.HeroController;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
+import edu.hitsz.application.Music.MusicPlayer;
+import edu.hitsz.application.Music.MusicThread;
 import edu.hitsz.application.Swing.RankList;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
@@ -72,10 +74,13 @@ public class Game extends JPanel {
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
+    MusicThread bgmMusicThread = null;
+    MusicThread bossMusicThread = null;
 //    private RecordDao recordDao = new RecordDaoImpl();
 
 
     public Game()  {
+        bgmMusicThread = MusicPlayer.getMusicPlayer().playMusic("src/videos/bgm.wav");
         heroAircraft = HeroAircraft.getHeroAircraft();
 
         enemyAircrafts = new LinkedList<>();
@@ -139,7 +144,17 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
+                MusicPlayer.getMusicPlayer().playMusic("src/videos/game_over.wav");
                 System.out.println("Game Over!");
+                /**
+                 * 背景音乐和boss机出场音乐停止
+                 */
+                if(bgmMusicThread != null) {
+                    MusicPlayer.getMusicPlayer().stopMusic(bgmMusicThread);
+                }
+                if(bossMusicThread != null){
+                    MusicPlayer.getMusicPlayer().stopMusic(bossMusicThread);
+                }
                 //弹出排行榜
                 RankList rankList = new RankList(difficulty);
                 Main.cardPanel.add(rankList.getMainPanel());
@@ -202,6 +217,7 @@ public class Game extends JPanel {
                 enemyAircrafts.add(enemy);
                 bossExistFlag = true;
                 bossNumber++;
+                bossMusicThread = MusicPlayer.getMusicPlayer().playMusic("src/videos/bgm_boss.wav");
             }
             thredhold = thredhold + increaseThreshold;
         }
@@ -213,8 +229,6 @@ public class Game extends JPanel {
         }
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
-
-
     }
 
     private void bulletsMoveAction() {
@@ -273,6 +287,7 @@ public class Game extends JPanel {
                 if (enemyAircraft.crash(bullet)) {
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
+                    MusicPlayer.getMusicPlayer().playMusic("src/videos/bullet_hit.wav");
                     enemyAircraft.decreaseHp(bullet.getPower());
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
@@ -281,6 +296,12 @@ public class Game extends JPanel {
                         {
                             score += 20;
                             bossExistFlag = false;
+                            /**
+                             * boss机被击毁，音乐停止
+                             */
+                            if(bossMusicThread != null){
+                                MusicPlayer.getMusicPlayer().stopMusic(bossMusicThread);
+                            }
                         }
                         else {
                             //获得分数，产生道具补给

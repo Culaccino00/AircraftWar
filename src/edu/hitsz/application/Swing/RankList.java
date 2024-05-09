@@ -28,6 +28,7 @@ public class RankList {
 
     private RecordDao recordDao;
     DefaultTableModel model ;
+
     public RankList(int level) {
         if(level==1){
             levelLabel.setText("难度：EASY");
@@ -66,6 +67,7 @@ public class RankList {
             }
         });
     }
+
     private void getScoreTable(int level){
         if(records != null && !records.isEmpty()){
             for (Record record : records) {
@@ -87,6 +89,12 @@ public class RankList {
         getScoreTable(level);
         recordDao.printRecord(level);
     }
+
+    /**
+     * 输入玩家名称，存入对应游戏难度的榜单中
+     * @param score
+     * @param level
+     */
     public void inputRecord(int score, int level){
         String input = null;
         input = JOptionPane.showInputDialog(null, "游戏结束，您的分数为"+score+",\n"+"请输入名字记录得分：");
@@ -120,6 +128,11 @@ public class RankList {
 
         }
     }
+
+    /**
+     * 根据游戏难度显示排行榜
+     * @param level
+     */
     public void showRankList(int level){
         getScoreTable(level);
         model = new DefaultTableModel(tableData, columnNames){

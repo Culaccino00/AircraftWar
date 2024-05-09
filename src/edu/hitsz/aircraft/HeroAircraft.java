@@ -35,6 +35,7 @@ public class HeroAircraft extends AbstractAircraft {
 
     //DCL-Singleton pattern
     private volatile static HeroAircraft heroAircraft;
+
     /**
      * @param locationX 英雄机位置x坐标
      * @param locationY 英雄机位置y坐标
