@@ -12,7 +12,7 @@ import edu.hitsz.strategy.NoneShootStrategy;
 
 public class MobEnemyFactory implements EnemyFactory{
     @Override
-    public void sethp(int hp){};
+    public void sethp(int hp){}
     @Override
     public AbstractAircraft createEnemy() {
         AbstractAircraft mobEnemy = new MobEnemy(

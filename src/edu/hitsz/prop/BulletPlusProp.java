@@ -2,10 +2,7 @@ package edu.hitsz.prop;
 
 import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.application.Music.MusicPlayer;
-import edu.hitsz.application.Music.MusicThread;
 import edu.hitsz.strategy.RingShootStrategy;
-import edu.hitsz.strategy.ScatterShootStrategy;
-import edu.hitsz.strategy.ShootStrategy;
 import edu.hitsz.strategy.StraightShootStrategy;
 
 public class BulletPlusProp  extends BaseProp{

@@ -2,9 +2,7 @@ package edu.hitsz.prop;
 
 import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.application.Music.MusicPlayer;
-import edu.hitsz.application.Music.MusicThread;
 import edu.hitsz.basic.Observer;
-import edu.hitsz.bullet.BaseBullet;
 
 import java.util.ArrayList;
 import java.util.List;

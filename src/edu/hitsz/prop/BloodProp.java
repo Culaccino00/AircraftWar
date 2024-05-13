@@ -2,7 +2,6 @@ package edu.hitsz.prop;
 
 import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.application.Music.MusicPlayer;
-import edu.hitsz.application.Music.MusicThread;
 
 
 public class BloodProp extends BaseProp{
