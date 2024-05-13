@@ -3,7 +3,6 @@ package edu.hitsz.aircraft;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.BaseBullet;
-import edu.hitsz.bullet.HeroBullet;
 import edu.hitsz.prop.BaseProp;
 import edu.hitsz.strategy.StraightShootStrategy;
 
@@ -15,19 +14,6 @@ import java.util.List;
  * @author hitsz
  */
 public class HeroAircraft extends AbstractAircraft {
-
-    /**攻击方式 */
-
-    /**
-     * 子弹一次发射数量
-     */
-//    private int shootNum = 1;
-
-    /**
-     * 子弹伤害
-     */
-//    private int power = 30;
-
     /**
      * 子弹射击方向 (向上发射：1，向下发射：-1)
      */
@@ -79,6 +65,10 @@ public class HeroAircraft extends AbstractAircraft {
     public List<BaseBullet> shoot() {
         return heroAircraft.doShoot(this.getLocationX(), this.getLocationY(), 0, this.getSpeedY(), direction);
     }
+    /**
+     * 英雄机不会掉落道具
+     * @return
+     */
     public List<BaseProp> createProps() {
         return new LinkedList<>();
     }

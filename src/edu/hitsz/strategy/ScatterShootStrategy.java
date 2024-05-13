@@ -10,7 +10,13 @@ import java.util.List;
 public class ScatterShootStrategy implements ShootStrategy{
     @Override
     public List<BaseBullet> shootBullet(int locationX, int locationY, int speedX, int speedY, int direction) {
+        /**
+         * 子弹一次发射数量
+         */
         int shootNum = 3;
+        /**
+         * 子弹伤害
+         */
         int power = (direction > 0) ? 10 : 30;
         List<BaseBullet> res = new LinkedList<>();
         int x = locationX;
