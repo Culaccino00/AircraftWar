@@ -26,7 +26,7 @@ public class BulletProp extends BaseProp{
             }
         };
         new Thread(r).start();
-//        System.out.println("FireSupply active!");
+        System.out.println("FireSupply active!");
         vanish();
     }
 }

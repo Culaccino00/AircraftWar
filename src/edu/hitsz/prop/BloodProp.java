@@ -16,7 +16,7 @@ public class BloodProp extends BaseProp{
         if(aircraft.getHp()<aircraft.getMaxHp()){
             aircraft.decreaseHp(-(Math.min(30,aircraft.getMaxHp()-aircraft.getHp())));
         }
-//        System.out.println("BloodSupply active!");
+        System.out.println("BloodSupply active!");
         vanish();
     }
 }

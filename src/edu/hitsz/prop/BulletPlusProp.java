@@ -28,7 +28,7 @@ public class BulletPlusProp  extends BaseProp{
             }
         };
         new Thread(r).start();
-//        System.out.println("FireSupplyPro active!");
+        System.out.println("FireSupplyPro active!");
         vanish();
     }
 }

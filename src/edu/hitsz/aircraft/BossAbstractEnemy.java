@@ -1,6 +1,6 @@
 package edu.hitsz.aircraft;
 
-public class BossEnemy extends EnemyAircraft {
+public class BossAbstractEnemy extends AbstractEnemyAircraft {
     /**攻击方式 */
 
     /**
@@ -17,7 +17,7 @@ public class BossEnemy extends EnemyAircraft {
 //    private int direction = 1;
 //    private int propNum = 3;
 
-    public BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
+    public BossAbstractEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
         propNum = 3;
     }

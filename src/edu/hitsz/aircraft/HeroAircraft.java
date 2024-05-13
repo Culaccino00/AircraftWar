@@ -29,7 +29,6 @@ public class HeroAircraft extends AbstractAircraft {
      * @param speedY 英雄机射出的子弹的基准速度（英雄机无特定速度）
      * @param hp    初始生命值
      */
-
     private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
     }
@@ -48,9 +47,6 @@ public class HeroAircraft extends AbstractAircraft {
         heroAircraft.setStrategy(new StraightShootStrategy());
         return heroAircraft;
     }
-
-
-
 
     @Override
     public void forward() {

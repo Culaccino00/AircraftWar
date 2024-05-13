@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class EnemyAircraft extends AbstractAircraft{
+public abstract class AbstractEnemyAircraft extends AbstractAircraft{
     /**
      * 子弹射击方向 (向上发射：1，向下发射：-1)
      */
@@ -18,7 +18,7 @@ public abstract class EnemyAircraft extends AbstractAircraft{
      * 道具数量
      */
     protected int propNum;
-    public EnemyAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
+    public AbstractEnemyAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
     }
     /**
@@ -73,6 +73,7 @@ public abstract class EnemyAircraft extends AbstractAircraft{
                 propFactory = new BulletPlusPropFactory();
             } else {
                 propFactory = null;
+                System.out.println("No supply generated!");
             }
             if (propFactory != null) {
                 prop = propFactory.createProp(x + (i * 2 - propNum + 1) * 30, y, speedX, speedY);

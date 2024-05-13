@@ -4,14 +4,14 @@ import edu.hitsz.application.Game.Game;
 import edu.hitsz.basic.Observer;
 
 /**
- * 普通敌机
- * 不可射击
- * 坠毁不生成道具
+ * 精英敌机
+ * 直射子弹
+ * 坠毁生成1个道具
  */
-public class MobEnemy extends AbstractEnemyAircraft implements Observer {
-    public MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
+public class EliteAbstractEnemy extends AbstractEnemyAircraft implements Observer {
+    public EliteAbstractEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
-        propNum = 0;
+        propNum = 1;
     }
     public void update(){
         this.vanish();

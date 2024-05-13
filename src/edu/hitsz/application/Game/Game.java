@@ -7,10 +7,11 @@ import edu.hitsz.application.Main;
 import edu.hitsz.application.Music.MusicPlayer;
 import edu.hitsz.application.Music.MusicThread;
 import edu.hitsz.application.Swing.RankList;
+import edu.hitsz.basic.Observer;
 import edu.hitsz.bullet.BaseBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
-import edu.hitsz.factory.*;
 import edu.hitsz.prop.BaseProp;
+import edu.hitsz.prop.BombProp;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ import java.util.concurrent.*;
  *
  * @author hitsz
  */
-public class Game extends JPanel {
+public abstract class Game extends JPanel {
 
     private int backGroundTop = 0;
 
@@ -37,23 +38,23 @@ public class Game extends JPanel {
     /**
      * 时间间隔(ms)，控制刷新频率
      */
-    private int timeInterval = 40;
+    protected int timeInterval = 40;
 
     private final HeroAircraft heroAircraft;
-    private final List<AbstractAircraft> enemyAircrafts;
+    protected final List<AbstractAircraft> enemyAircrafts;
     private final List<BaseBullet> heroBullets;
     private final List<BaseBullet> enemyBullets;
     private final List<BaseProp> props;
     /**
      * 屏幕中出现的敌机最大数量
      */
-    private int enemyMaxNumber = 5;
-    private int bossNumber = 1;
+    protected int enemyMaxNumber;
+    protected int bossNumber = 1;
 
     /**
      * 当前得分
      */
-    private int score = 0;
+    protected static int score = 0;
     /**
      * 当前时刻
      */
@@ -65,10 +66,11 @@ public class Game extends JPanel {
      */
     private int cycleDuration = 600;
     private int cycleTime = 0;
-    private boolean bossExistFlag = false;
-    private int thredhold = 200;
-    private int increaseThreshold = 200;
+    protected boolean bossExistFlag = false;
+    protected int thredhold;
+    protected int increaseThreshold = 200;
     protected int difficulty;
+    protected double eliteProbability = 0;
 
     /**
      * 游戏结束标志
@@ -76,7 +78,6 @@ public class Game extends JPanel {
     private boolean gameOverFlag = false;
     MusicThread bgmMusicThread = null;
     MusicThread bossMusicThread = null;
-//    private RecordDao recordDao = new RecordDaoImpl();
 
 
     public Game()  {
@@ -100,6 +101,7 @@ public class Game extends JPanel {
         new HeroController(this, heroAircraft);
 
     }
+    public abstract void increaseDifficulty();
 
     /**
      * 游戏启动入口，执行游戏逻辑
@@ -115,7 +117,10 @@ public class Game extends JPanel {
 
             // 周期性执行（控制频率）
             if (timeCountAndNewCycleJudge()) {
-                System.out.println(time);
+//                System.out.println(time);
+                if((time / 600) % 20 == 0 && time / 600 != 0){
+                    increaseDifficulty();
+                }
                 // 新敌机产生
                 addEnemy();
                 // 飞机射出子弹
@@ -190,38 +195,7 @@ public class Game extends JPanel {
             return false;
         }
     }
-    private void addEnemy() {
-        EnemyFactory enemyFactory;
-        AbstractAircraft enemy = null;
-        //随机生成EliteEnemy,ElitePlusEnemy和MobEnemy
-        if (enemyAircrafts.size() < enemyMaxNumber) {
-            if (Math.random() > 0.5) {
-            enemyFactory = new MobEnemyFactory();
-            enemy = enemyFactory.createEnemy();
-            }
-            else if (Math.random() < 0.8){
-                enemyFactory = new EliteEnemyFactory();
-                enemy = enemyFactory.createEnemy();
-            }
-            else {
-                enemyFactory = new ElitePlusEnemyFactory();
-                enemy = enemyFactory.createEnemy();
-            }
-            enemyAircrafts.add(enemy);
-        }
-
-        if( score >= thredhold){
-            if(bossExistFlag == false) {//每获得100分，产生boss
-                enemyFactory = new BossEnemyFactory();
-                enemy = enemyFactory.createEnemy();
-                enemyAircrafts.add(enemy);
-                bossExistFlag = true;
-                bossNumber++;
-                bossMusicThread = MusicPlayer.getMusicPlayer().playMusic("src/videos/bgm_boss.wav");
-            }
-            thredhold = thredhold + increaseThreshold;
-        }
-    }
+    public abstract void addEnemy();
     private void shootAction() {
         // 敌机射击
         for (AbstractAircraft enemyAircraft : enemyAircrafts) {
@@ -249,6 +223,9 @@ public class Game extends JPanel {
         for (BaseProp prop : props) {
             prop.forward();
         }
+    }
+    public static void addScore(int num){
+        score = score + num;
     }
 
 
@@ -292,7 +269,7 @@ public class Game extends JPanel {
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
                         props.addAll(enemyAircraft.createProps());
-                        if(enemyAircraft instanceof BossEnemy)
+                        if(enemyAircraft instanceof BossAbstractEnemy)
                         {
                             score += 20;
                             bossExistFlag = false;
@@ -322,6 +299,18 @@ public class Game extends JPanel {
                 continue;
             }
             if(prop.crash(heroAircraft)||heroAircraft.crash(prop)){
+                if(prop instanceof BombProp){
+                    for(AbstractAircraft enemyAircraft : enemyAircrafts){
+                        if(enemyAircraft instanceof BossAbstractEnemy){
+
+                        }else{
+                            ((BombProp) prop).addObserver((Observer)enemyAircraft);
+                        }
+                    }
+                    for(BaseBullet bullet : enemyBullets){
+                        ((BombProp) prop).addObserver((Observer)bullet);
+                    }
+                }
                 prop.effect(heroAircraft);
                 prop.vanish();
             }
