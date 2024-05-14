@@ -34,7 +34,7 @@ public class MediumGame extends Game{
         if(eliteProbability <= 0.3){
             eliteProbability += 0.02;
         }
-        System.out.println("提高难度！精英机概率："+ ((0.8 - eliteProbability * 0.5)-(0.5 - eliteProbability)) +"，飞机射击周期及敌机产生周期缩小倍率："+ (double)timeInterval/40 +"，屏幕中出现的敌机最大数量提升倍率："+ (double)enemyMaxNumber/6 +"，Boss敌机产生的分数阈值间隔缩小倍率："+ (double)increaseThreshold/200);
+        System.out.println("提高难度！精英机概率："+ ((0.8 - eliteProbability * 0.5)-(0.5 - eliteProbability)) +"，飞机射击周期及敌机产生周期缩小倍率："+ (double)timeInterval/40 +"，屏幕中出现的敌机最大数量提升倍率："+ (double)enemyMaxNumber/6 +"，Boss敌机产生的分数阈值间隔缩小倍率："+ (double)increaseThreshold/300);
     }
     public void addEnemy() {
         EnemyFactory enemyFactory;

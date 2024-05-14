@@ -68,7 +68,7 @@ public abstract class Game extends JPanel {
     private int cycleTime = 0;
     protected boolean bossExistFlag = false;
     protected int thredhold;
-    protected int increaseThreshold = 200;
+    protected int increaseThreshold = 300;
     protected int difficulty;
     protected double eliteProbability = 0;
 
