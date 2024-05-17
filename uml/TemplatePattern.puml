@@ -49,15 +49,13 @@ class EasyGame{
     + addEnemy():void
 }
 class MediumGame{
-    - increasehp:double
-    - increaseSpeedY:double
+    - increasehp:int
     + MediumGame()
     + increaseDifficulty():void
     + addEnemy():void
 }
 class HardGame{
-    - increasehp:double
-    - increaseSpeedY:double
+    - increasehp:int
     + HardGame()
     + increaseDifficulty():void
     + addEnemy():void

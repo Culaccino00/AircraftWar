@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class HardGame extends Game{
     private int increasehp = 0;
-    private int increaseSpeedY = 0;
     public HardGame() {
         difficulty = 3;
         try {
@@ -35,7 +34,7 @@ public class HardGame extends Game{
         }
         if(heroCycleDuration >= 340){
             heroCycleDuration -= 10;
-            System.out.print("英雄机射击周期缩小倍率："+ (double)heroCycleDuration/460+"，\n");
+            System.out.print("英雄机射击周期缩小倍率："+ (double)heroCycleDuration/460+"，");
         }
         if(increaseThreshold >= 100){
             increaseThreshold -= 20;
@@ -45,10 +44,11 @@ public class HardGame extends Game{
             eliteProbability += 0.10;
             System.out.print("精英机概率："+ ((0.8 - eliteProbability * 0.5)-(0.5 - eliteProbability) + "，"));
         }
-        increasehp += 5;
-        System.out.print("敌机增加："+ (int)increasehp+"，");
-        increaseSpeedY += 0.1;
-        System.out.print("敌机垂直速度倍率："+ (int)increaseSpeedY+"。\n");
+        if(increasehp <= 20) {
+            increasehp += 2;
+            System.out.print("敌机血量增加：" + increasehp + "。");
+        }
+        System.out.println();
     }
     public void addEnemy() {
         EnemyFactory enemyFactory;
@@ -57,15 +57,15 @@ public class HardGame extends Game{
         if (enemyAircrafts.size() < enemyMaxNumber) {
             if (Math.random() < 0.5 - eliteProbability) {
                 enemyFactory = new MobEnemyFactory();
-                enemy = enemyFactory.createEnemy(30 + (int)increasehp, 10 * (int)increaseSpeedY);
+                enemy = enemyFactory.createEnemy(30 + increasehp, 10 );
             }
             else if (Math.random() < 0.8 - eliteProbability * 0.5){
                 enemyFactory = new EliteEnemyFactory();
-                enemy = enemyFactory.createEnemy(60 * (int)increasehp, 10 * (int)increaseSpeedY);
+                enemy = enemyFactory.createEnemy(60 + increasehp, 10 );
             }
             else {
                 enemyFactory = new ElitePlusEnemyFactory();
-                enemy = enemyFactory.createEnemy(60 * (int)increasehp, 10 * (int)increaseSpeedY);
+                enemy = enemyFactory.createEnemy(60 + increasehp, 10 );
             }
             enemyAircrafts.add(enemy);
         }
