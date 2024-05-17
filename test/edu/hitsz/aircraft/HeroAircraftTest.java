@@ -33,7 +33,7 @@ class HeroAircraftTest {
     @BeforeEach
     void setUp() {
         heroAircraft.setLocation(200,200);
-        mobEnemy = mobEnemyFactory.createEnemy();
+        mobEnemy = mobEnemyFactory.createEnemy(30, 10);
 //        heroBullet = new HeroBullet(200,200,0,20,30);
     }
 

@@ -1,0 +1,68 @@
+@startuml
+'https://plantuml.com/class-diagram
+abstract class Game{
+    - backGroundTop:int
+    - executorService:ScheduledExecutorService
+    - timeInterval:int
+    - heroAircraft:HeroAircraft
+    # enemyAircrafts:List<AbstractEnemyAircraft>
+    - heroBullets:List<BaseBullet>
+    - enemyBullets:List<BaseBullet>
+    - props:List<BaseProp>
+    # enemyMaxNumber:int
+    # bossNumber:int
+    # {static}score:int
+    - time:int
+    # cycleDuration:int
+    # heroCycleDuration:int
+    - cycleTime:int
+    - heroCycleTime:int
+    # bossExistFlag:boolean
+    # threshold:int
+    # increaseThreshold:int
+    # difficulty:int
+    # eliteProbability:double
+    - gameOverFlag:boolean
+    # bgmMusicThread: MusicThread
+    # bossMusicThread: MusicThread
+    + Game()
+    + {abstract} increaseDifficulty():void
+    + action(): void
+    - timeCountAndNewCycleJudge():boolean
+    - heroTimeCountAndNewCycleJudge():boolean
+    + {abstract} addEnemy():void
+    - enemyShootAction():void
+    - heroShootAction():void
+    - bulletsMoveAction():void
+    - aircraftsMoveAction():void
+    - propsMoveAction():void
+    + {static}addScore(int num):void
+    - crashCheckAction():void
+    - postProcessAction():void
+    + paint(Graphics g):void
+    - paintImageWithPositionRevised(Graphics g, List<? extends AbstractFlyingObject> objects):void
+    - paintScoreAndLife(Graphics g):void
+}
+class EasyGame{
+    + EasyGame()
+    + increaseDifficulty():void
+    + addEnemy():void
+}
+class MediumGame{
+    - increasehp:double
+    - increaseSpeedY:double
+    + MediumGame()
+    + increaseDifficulty():void
+    + addEnemy():void
+}
+class HardGame{
+    - increasehp:double
+    - increaseSpeedY:double
+    + HardGame()
+    + increaseDifficulty():void
+    + addEnemy():void
+}
+Game <|-- EasyGame
+Game <|-- MediumGame
+Game <|-- HardGame
+@enduml

@@ -38,10 +38,10 @@ public abstract class Game extends JPanel {
     /**
      * 时间间隔(ms)，控制刷新频率
      */
-    protected int timeInterval = 40;
+    private int timeInterval = 40;
 
     private final HeroAircraft heroAircraft;
-    protected final List<AbstractAircraft> enemyAircrafts;
+    protected final List<AbstractEnemyAircraft> enemyAircrafts;
     private final List<BaseBullet> heroBullets;
     private final List<BaseBullet> enemyBullets;
     private final List<BaseProp> props;
@@ -64,8 +64,10 @@ public abstract class Game extends JPanel {
      * 周期（ms)
      * 指示子弹的发射、敌机的产生频率
      */
-    private int cycleDuration = 600;
+    protected int cycleDuration = 600;
+    protected int heroCycleDuration = 600;
     private int cycleTime = 0;
+    private int heroCycleTime = 0;
     protected boolean bossExistFlag = false;
     protected int thredhold;
     protected int increaseThreshold = 300;
@@ -76,8 +78,8 @@ public abstract class Game extends JPanel {
      * 游戏结束标志
      */
     private boolean gameOverFlag = false;
-    MusicThread bgmMusicThread = null;
-    MusicThread bossMusicThread = null;
+    protected MusicThread bgmMusicThread = null;
+    protected MusicThread bossMusicThread = null;
 
 
     public Game()  {
@@ -106,27 +108,27 @@ public abstract class Game extends JPanel {
     /**
      * 游戏启动入口，执行游戏逻辑
      */
-    public void action() {
+    public final void action() {
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
-//            try{
-
             time += timeInterval;
-
-
+            if(time % 2000 == 0 && time / 2000 != 0){
+                increaseDifficulty();
+            }
+//            System.out.println(time);
             // 周期性执行（控制频率）
             if (timeCountAndNewCycleJudge()) {
 //                System.out.println(time);
-                if((time / 600) % 20 == 0 && time / 600 != 0){
-                    increaseDifficulty();
-                }
+
                 // 新敌机产生
                 addEnemy();
                 // 飞机射出子弹
-                shootAction();
+                enemyShootAction();
             }
-
+            if(heroTimeCountAndNewCycleJudge()){
+                heroShootAction();
+            }
             // 子弹移动
             bulletsMoveAction();
 
@@ -195,12 +197,24 @@ public abstract class Game extends JPanel {
             return false;
         }
     }
+    private boolean heroTimeCountAndNewCycleJudge() {
+        heroCycleTime += timeInterval;
+        if (heroCycleTime >= heroCycleDuration && heroCycleTime - timeInterval < heroCycleTime) {
+            // 跨越到新的周期
+            heroCycleTime %= heroCycleDuration;
+            return true;
+        } else {
+            return false;
+        }
+    }
     public abstract void addEnemy();
-    private void shootAction() {
+    private void enemyShootAction() {
         // 敌机射击
         for (AbstractAircraft enemyAircraft : enemyAircrafts) {
             enemyBullets.addAll(enemyAircraft.shoot());
         }
+    }
+    private void heroShootAction() {
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
     }
@@ -269,7 +283,7 @@ public abstract class Game extends JPanel {
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
                         props.addAll(enemyAircraft.createProps());
-                        if(enemyAircraft instanceof BossAbstractEnemy)
+                        if(enemyAircraft instanceof BossEnemy)
                         {
                             score += 20;
                             bossExistFlag = false;
@@ -301,7 +315,7 @@ public abstract class Game extends JPanel {
             if(prop.crash(heroAircraft)||heroAircraft.crash(prop)){
                 if(prop instanceof BombProp){
                     for(AbstractAircraft enemyAircraft : enemyAircrafts){
-                        if(enemyAircraft instanceof BossAbstractEnemy){
+                        if(enemyAircraft instanceof BossEnemy){
 
                         }else{
                             ((BombProp) prop).addObserver((Observer)enemyAircraft);

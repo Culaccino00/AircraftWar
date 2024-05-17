@@ -8,20 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BombProp extends BaseProp {
-    public BombProp(int locationX, int locationY, int speedX, int speedY) {
-        super(locationX, locationY, speedX, speedY);
-    }
     //观察者列表
     private List<Observer> observerList = new ArrayList<>();
 
+    public BombProp(int locationX, int locationY, int speedX, int speedY) {
+        super(locationX, locationY, speedX, speedY);
+    }
     //添加观察者
     public void addObserver(Observer observer){
         observerList.add(observer);
-    }
-
-    //删除观察者
-    public void removeObserver(Observer observer){
-        observerList.remove(observer);
     }
 
     //通知所有观察者

@@ -22,18 +22,10 @@ class RingShootStrategy{
 
 abstract class AbstractAircraft
 {
-	# maxHp:int
-    # hp:int
-    # propfactory:PropFactory
     - shootStrategy:ShootStrategy
     + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
     + setStrategy(ShootStrategy shootStrategy):void
     + doShoot(int locationX, int locationY, int speedX, int speedY, int direction):List<BaseBullet>
-    + decreaseHp(int decrease):void
-    + getHp():int
-    + getMaxHp():int
-    + {abstract} shoot():List<BaseBullet>
-    + {abstract} createProps():List<BaseProp>
  }
 
 ShootStrategy <|.. ScatterShootStrategy

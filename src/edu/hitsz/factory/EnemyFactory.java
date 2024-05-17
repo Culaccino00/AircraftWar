@@ -1,6 +1,7 @@
 package edu.hitsz.factory;
 import edu.hitsz.aircraft.AbstractAircraft;
+import edu.hitsz.aircraft.AbstractEnemyAircraft;
+
 public interface EnemyFactory {
-    public abstract void sethp(int hp);
-    public abstract AbstractAircraft createEnemy();
+    public abstract AbstractEnemyAircraft createEnemy(int hp, int speedY);
 }

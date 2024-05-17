@@ -8,8 +8,8 @@ import edu.hitsz.basic.Observer;
  * 直射子弹
  * 坠毁生成1个道具
  */
-public class EliteAbstractEnemy extends AbstractEnemyAircraft implements Observer {
-    public EliteAbstractEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
+public class EliteEnemy extends AbstractEnemyAircraft implements Observer {
+    public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
         propNum = 1;
     }

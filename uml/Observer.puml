@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class BombProp{
+    - observerList:List<Observer>
+    + BombProp(int locationX, int locationY, int speedX, int speedY)
+    + addObserver(Observer observer):void
+    + notifyAllFlyings():void
+    + effect(AbstractAircraft aircraft):void
+}
+
+interface Observer{
+    + {abstract} update():void
+}
+
+class MobEnemy{
+    + update():void
+}
+
+class EliteEnemy{
+    + update():void
+}
+
+class ElitePlusEnemy{
+    + update():void
+}
+
+class EnemyBullet{
+    + update():void
+}
+
+Observer <|.. MobEnemy
+Observer <|.. EliteEnemy
+Observer <|.. ElitePlusEnemy
+Observer <|.. EnemyBullet
+BombProp o--> Observer
+
+@enduml

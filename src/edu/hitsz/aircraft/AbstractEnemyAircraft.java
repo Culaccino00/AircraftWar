@@ -11,7 +11,7 @@ import java.util.Random;
 
 public abstract class AbstractEnemyAircraft extends AbstractAircraft{
     /**
-     * 子弹射击方向 (向上发射：1，向下发射：-1)
+     * 子弹射击方向 (向上发射：-1，向下发射：1)
      */
     protected int direction = 1;
     /**

@@ -1,27 +1,26 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Gmae{
-    - recordDao: RecordDao
-    + action():void
-}
-
 interface RecordDao{
-    + {abstract} getAllRecord():List<Record>
-    + {abstract} updateRecord(Record record):void
-    + {abstract} deleteRecord(int row):void
-    + {abstract} writeRecord(List<Record> records):void
-    + {abstract} printRecord():void
+    + {abstract} getAllRecord(int level):List<Record>
+    + {abstract} updateRecord(Record record, int level):void
+    + {abstract} deleteRecord(int row, int level):void
+    + {abstract} writeRecord(List<Record> records, int level):void
+    + {abstract} printRecord(int level):void
 }
 
 class RecordDaoImpl{
+    - file1: File
+    - file2: File
+    - file3: File
     - file: File
-    + RecordDaoImpl()
-    + getAllRecord():List<Record>
-    + updateRecord(Record record):void
-    + deleteRecord(int row):void
-    + writeRecord(List<Record> records):void
-    + printRecord():void
+    + RecordDaoImpl(int level)
+    - chooseFile(int level):File
+    + getAllRecord(int level):List<Record>
+    + updateRecord(Record record, int level):void
+    + deleteRecord(int row, int level):void
+    + writeRecord(List<Record> records, int level):void
+    + printRecord(int level):void
 }
 
 class Record{
@@ -29,6 +28,7 @@ class Record{
     - score:int
     - time:String
     + Record(String userName, int score, String time)
+    + Record()
     + setUserName(String userName):void
     + getUserName():String
     + setScore(int score):void
@@ -38,7 +38,6 @@ class Record{
 }
 
 RecordDao <|.. RecordDaoImpl
-Gmae ..> RecordDao
 RecordDaoImpl --> Record
 
 

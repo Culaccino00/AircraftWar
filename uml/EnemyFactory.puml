@@ -1,53 +1,66 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-
-class Game{
-- addEnemy():void
-}
-abstract class AbstractAircraft
-{
-	# maxHp:int
-    # hp:int
-    + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
-    + decreaseHp(int decrease):void
-    + getHp():int
-    + getMaxHp():int
-    + {abstract} shoot():List<BaseBullet>
-    + {abstract} createProps():List<BaseProp>
- }
 interface EnemyFactory {
-    + {abstract}createEnemy():AbstractAircraft
-}
-Game ..> AbstractAircraft
-Game ..> EnemyFactory
-
-class EliteEnemyFactory {
-    +createEnemy():AbstractAircraft
+    + {abstract}createEnemy(int hp, int speedY): AbstractEnemyAircraft
 }
 class MobEnemyFactory {
-    +createEnemy():AbstractAircraft
+    + createEnemy(int hp, int speedY):AbstractEnemyAircraft
+}
+
+class EliteEnemyFactory {
+    + createEnemy(int hp, int speedY):AbstractEnemyAircraft
+}
+
+class ElitePlusEnemyFactory{
+    + createEnemy(int hp, int speedY):AbstractEnemyAircraft
+}
+
+class BossEnemyFactory{
+    + createEnemy(int hp, int speedY):AbstractEnemyAircraft
 }
 EnemyFactory <|.. EliteEnemyFactory
 EnemyFactory <|.. MobEnemyFactory
+EnemyFactory <|.. ElitePlusEnemyFactory
+EnemyFactory <|.. BossEnemyFactory
 
-class EliteEnemy {
-    - shootNum:int
-    - power:int
-    - direction:int
-    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+abstract class AbstractEnemyAircraft{
+    # direction:int
+    # propNum:int
+
+    + AbstractEnemyAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
     + forward():void
+    + getSpeedX():int
     + shoot():List<BaseBullet>
     + createProps():List<BaseProp>
 }
+
 class MobEnemy {
     + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
-    + forward():void
-    + shoot():List<BaseBullet>
-    + createProps():List<BaseProp>
+    + update():void
 }
+AbstractEnemyAircraft <|-- MobEnemy
+
+class EliteEnemy {
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + update():void
+}
+AbstractEnemyAircraft <|-- EliteEnemy
+
+class ElitePlusEnemy{
+    + ElitePlusEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + update():void
+}
+AbstractEnemyAircraft <|-- ElitePlusEnemy
+
+class BossEnemy{
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+}
+AbstractEnemyAircraft <|-- BossEnemy
+
 EliteEnemyFactory ..> EliteEnemy :create
 MobEnemyFactory ..> MobEnemy :create
-AbstractAircraft <|-- EliteEnemy
-AbstractAircraft <|-- MobEnemy
+ElitePlusEnemyFactory ..> ElitePlusEnemy :create
+BossEnemyFactory ..> BossEnemy :create
+
 @enduml

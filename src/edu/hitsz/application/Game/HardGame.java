@@ -1,6 +1,7 @@
 package edu.hitsz.application.Game;
 
 import edu.hitsz.aircraft.AbstractAircraft;
+import edu.hitsz.aircraft.AbstractEnemyAircraft;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Music.MusicPlayer;
 import edu.hitsz.factory.*;
@@ -10,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class HardGame extends Game{
+    private int increasehp = 0;
+    private int increaseSpeedY = 0;
     public HardGame() {
         difficulty = 3;
         try {
@@ -17,40 +20,52 @@ public class HardGame extends Game{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        cycleDuration = 460;
         enemyMaxNumber = 8;
         thredhold = 200;
+        heroCycleDuration = 460;
     }
     public void increaseDifficulty() {
-        if(enemyMaxNumber <= 15){
-            enemyMaxNumber += 2;
+        System.out.print("提高难度！");
+        enemyMaxNumber += 2;
+        System.out.print("屏幕中出现的敌机最大数量提升倍率："+ (double)enemyMaxNumber/8 +"，");
+        if(cycleDuration >= 300){
+            cycleDuration -= 20;
+            System.out.print("敌机射击周期及敌机产生周期缩小倍率："+ (double)cycleDuration/460+"，");
         }
-        if(timeInterval >= 12){
-            timeInterval -= 1;
+        if(heroCycleDuration >= 340){
+            heroCycleDuration -= 10;
+            System.out.print("英雄机射击周期缩小倍率："+ (double)heroCycleDuration/460+"，\n");
         }
         if(increaseThreshold >= 100){
             increaseThreshold -= 20;
+            System.out.print("Boss敌机产生的分数阈值间隔缩小倍率："+ (double)increaseThreshold/300+"，");
         }
-        if(eliteProbability <= 0.2){
-            eliteProbability += 0.04;
+        if(eliteProbability <= 0.5){
+            eliteProbability += 0.10;
+            System.out.print("精英机概率："+ ((0.8 - eliteProbability * 0.5)-(0.5 - eliteProbability) + "，"));
         }
-        System.out.println("提高难度！精英机概率："+ ((0.8 - eliteProbability * 0.5)-(0.5 - eliteProbability)) +"，飞机射击周期及敌机产生周期缩小倍率："+ (double)timeInterval/40 +"，屏幕中出现的敌机最大数量提升倍率："+ (double)enemyMaxNumber/8 +"，Boss敌机产生的分数阈值间隔缩小倍率："+ (double)increaseThreshold/300);
+        increasehp += 5;
+        System.out.print("敌机增加："+ (int)increasehp+"，");
+        increaseSpeedY += 0.1;
+        System.out.print("敌机垂直速度倍率："+ (int)increaseSpeedY+"。\n");
     }
     public void addEnemy() {
         EnemyFactory enemyFactory;
-        AbstractAircraft enemy = null;
+        AbstractEnemyAircraft enemy = null;
         //随机生成EliteEnemy,ElitePlusEnemy和MobEnemy
         if (enemyAircrafts.size() < enemyMaxNumber) {
             if (Math.random() < 0.5 - eliteProbability) {
                 enemyFactory = new MobEnemyFactory();
-                enemy = enemyFactory.createEnemy();
+                enemy = enemyFactory.createEnemy(30 + (int)increasehp, 10 * (int)increaseSpeedY);
             }
             else if (Math.random() < 0.8 - eliteProbability * 0.5){
                 enemyFactory = new EliteEnemyFactory();
-                enemy = enemyFactory.createEnemy();
+                enemy = enemyFactory.createEnemy(60 * (int)increasehp, 10 * (int)increaseSpeedY);
             }
             else {
                 enemyFactory = new ElitePlusEnemyFactory();
-                enemy = enemyFactory.createEnemy();
+                enemy = enemyFactory.createEnemy(60 * (int)increasehp, 10 * (int)increaseSpeedY);
             }
             enemyAircrafts.add(enemy);
         }
@@ -58,10 +73,9 @@ public class HardGame extends Game{
         if( score >= thredhold){
             if(!bossExistFlag) {
                 enemyFactory = new BossEnemyFactory();
-                enemy = enemyFactory.createEnemy();
+                enemy = enemyFactory.createEnemy(150 + bossNumber * 200, 0);
                 //Boss敌机血量随bossNumber增加而增加
-                enemyFactory.sethp(150 + bossNumber * 100);
-                System.out.println("第"+bossNumber+"次产生boss敌机!Boss机血量倍率："+(double)(150 + bossNumber * 100)/250);
+                System.out.println("第"+bossNumber+"次产生boss敌机!Boss机血量倍率："+(double)(150 + bossNumber * 200)/350);
                 enemyAircrafts.add(enemy);
                 bossExistFlag = true;
                 bossNumber++;

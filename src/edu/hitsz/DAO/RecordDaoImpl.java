@@ -20,6 +20,7 @@ public class RecordDaoImpl implements RecordDao{
             }
         }
     }
+    //选择文件
     private File chooseFile(int level){
         switch(level){
             case 1:
